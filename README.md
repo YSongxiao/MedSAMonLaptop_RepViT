@@ -46,8 +46,8 @@ sh train_val_one_gpu_distill.sh
 
 You can download trained models here:
 
-- [Teacher Swin-T based MedSAM](https://drive.google.com/mymodel.pth) trained on the above dataset with the above code. 
-- [Distilled RepViT Encoder](https://drive.google.com/mymodel.pth) trained on the above dataset with the above code.
+- [Teacher Swin-T based MedSAM](https://github.com/YSongxiao/MedSAMonLaptop_RepViT/blob/main/work_dir/pretrain_weights/medsam_lite_best_extracted_swin.pth) trained on the above dataset with the above code. 
+- [Distilled RepViT Encoder](https://github.com/YSongxiao/MedSAMonLaptop_RepViT/blob/main/work_dir/pretrain_weights/medsam_lite_repvit_encoder_best.pth) trained on the above dataset with the above code.
 
 
 ## Inference
