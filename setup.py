@@ -8,9 +8,9 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="litemedsam_repvit",
+    name="litemedsam",
     version="0.0.1",
-    author="Songxiao Yang",
+    author="Jun Ma",
     python_requires=">=3.9",
     install_requires=["monai", "timm", "matplotlib", "scikit-image", "SimpleITK>=2.2.1", "pyarrow", "pandas", "nibabel", "tqdm", "scipy", "ipympl", "opencv-python", "jupyterlab", "ipywidgets"],
     packages=find_packages(exclude="notebooks"),
