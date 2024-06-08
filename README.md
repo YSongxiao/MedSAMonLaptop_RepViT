@@ -3,8 +3,6 @@
 This repository is the official implementation of [A Light-weight Universal Medical Segmentation Network for Laptops Based on Knowledge Distillation](TBA). 
 
 
-![Model](./figs/fig_network.jpg)
-
 ## Environments and Requirements
 
 - Ubuntu 22.04.4 LTS
@@ -14,70 +12,37 @@ This repository is the official implementation of [A Light-weight Universal Medi
 
 To install requirements:
 
-Enter MedSAMonLaptop_RepViT folder `cd MedSAMonLaptop_RepViT` and run
+Enter MedSAMonLaptop_RepViT folder
+```bash
+cd MedSAMonLaptop_RepViT
+``` 
+and run
 
 ```bash
 pip install -e .
 ```
 
-## Preprocessing
-
-Running the data preprocessing code:
-
+## Build Docker
 ```bash
-python npz_to_npy.py --input_path <path_to_input_data> --output_path <path_to_output_data>
+docker build -f Dockerfile -t litemedsam_repvit .
 ```
 
-## Training
+> Note: don't forget the `.` in the end
 
-To train the teacher model in the paper, run this command:
-
-```bash
-sh train_val_one_gpu.sh
-```
-
-To distill the repvit encoder from the trained teacher model, run this command:
+Run the docker on the testing demo images
 
 ```bash
-sh train_val_one_gpu_distill.sh
+docker container run -m 8G --name litemedsam_repvit --rm -v $PWD/test_demo/imgs/:/workspace/inputs/ -v $PWD/test_demo/litemedsam-seg/:/workspace/outputs/ litemedsam_repvit:latest /bin/bash -c "sh predict.sh"
 ```
 
-## Trained Models
+> Note: please run `chmod -R 777 ./*` if you run into `Permission denied` error.
 
-You can download trained models here:
-
-- [Teacher Swin-T based MedSAM](https://github.com/YSongxiao/MedSAMonLaptop_RepViT/blob/main/work_dir/pretrain_weights/medsam_lite_best_extracted_swin.pth) trained on the above dataset with the above code. 
-- [Distilled RepViT Encoder](https://github.com/YSongxiao/MedSAMonLaptop_RepViT/blob/main/work_dir/pretrain_weights/medsam_lite_repvit_encoder_best.pth) trained on the above dataset with the above code.
-
-
-## Inference
-
-To infer the testing cases, run this command:
+Save docker 
 
 ```bash
-sh inference.sh 
+docker save litemedsam_repvit | gzip -c > litemedsam_repvit.tar.gz
 ```
 
-
-## Evaluation
-
-To compute the evaluation metrics, run:
-
-```bash
-python evaluation/compute_metrics.py -s test_demo/litemedsam-seg -g test_demo/gts -csv_dir ./metrics.csv
-```
-
-
-
-## Results
-
-The results will be released after CVPR2024.
-
-[//]: # (| Model name       |  DICE  | 95% Hausdorff Distance |)
-
-[//]: # (| ---------------- | :----: | :--------------------: |)
-
-[//]: # (| My awesome model | 90.68% |         32.71          |)
 
 ## Acknowledgement
 
